@@ -294,6 +294,22 @@ async def search_method_by_name(method_name: str) -> List[str]:
     return all_matches
 
 @mcp.tool()
+async def search_code(code: str) -> List[str]:
+    """Search for a code snippet across all classes.
+    
+    Args:
+        code: The code snippet to search for
+    
+    Returns:
+        A list of all methods containing the code snippet.
+    """
+    
+    response = await get_from_jadx("search-code", {"code": code})
+    all_matches = response.splitlines() if response else []
+    
+    return all_matches
+
+@mcp.tool()
 async def get_methods_of_class(class_name: str) -> List[str]:
     """List all method names in a class.
     
